@@ -7,12 +7,28 @@ The task text, the six parts, what to submit and the grading table are in the ha
 in Canvas. This repository holds only the files you start from; it has no instructions of its own beyond the setup
 below.
 
+## My submission (Abror Imamsidikov, SEED = 2954)
+
+The work is in **`Imamsidikov_task4.ipynb`** (executed with Restart & Run All, outputs visible, one heading per Part 0–6).
+To rerun it: create `.Imamsidikov_ML_task_4` with Python 3.12 as below, `pip install -r requirements.txt jupyterlab`,
+and run all cells (about a minute).
+
+| Part | Main result |
+|---|---|
+| 1 · Bagging & OOB | mean OOB share 0.3685 vs (1 − 1/n)^n = 0.3678; my OOB accuracy = `oob_score_` = 0.9413; bagging helps the tree (+0.032 ± 0.005) but not logistic regression (inside the fold spread); forest OOB 0.948, CV 0.945, test 0.946 ± 0.007 |
+| 2 · Evaluation | forest AUC 0.984 / AP 0.976 vs tree 0.901 / 0.823; t = 0.677 from out-of-fold FPR ≤ 1 %; on test 11 of 632 legitimate mails flagged (FPR 1.74 %), so the 1 % target did not hold |
+| 3 · Voting | `hard_vote` = sklearn on 100 % of test rows; hard voting beats the best member lr (+0.006 ± 0.003); soft voting does not separate from lr |
+| 4 · Stacking | hand-made out-of-fold stacking = `StackingClassifier` (same weights, test accuracy 0.941); tree weight 8.29 naive vs 1.59 out-of-fold; no winner against lr or soft voting |
+| 5 · AdaBoost & noise | `adaboost_step` matches the lecture and sklearn (differences ≤ 3e-16); 350 rounds chosen on training folds (best test round 333, difference < 1 SE); at 20 % label noise the tree loses 0.182, the forest 0.041, AdaBoost 0.014; flipped rows end with 40 % of AdaBoost's weight |
+| 6 · Recommendation | random forest with t = 0.677; its lead over lr, voting and stacking is inside the fold spread |
+
 ## What is here
 
 | File | What it is |
 |---|---|
 | `data/spambase.csv` | The dataset: 4,204 e-mails described by 57 numeric features, and the label `spam` (1 = spam, 0 = legitimate mail) |
 | `requirements.txt` | Pinned library versions the task is written and checked against. Do not change them |
+| `Imamsidikov_task4.ipynb` | My executed notebook with all six parts |
 | `make_dataset.py` | How `spambase.csv` was built from the UCI source. You do not need to run it |
 | `.gitignore` | Keeps your virtual environment and notebook checkpoints out of git |
 
